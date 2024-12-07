@@ -1,7 +1,10 @@
 using Entitas;
 
-[Game]
-public class PlayerHealthComponent : IComponent
+namespace Components
 {
-    public float Value;
+    [Game]
+    public class PlayerHealthComponent : IComponent
+    {
+        public float Value;
+    }
 }

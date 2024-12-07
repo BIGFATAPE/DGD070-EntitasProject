@@ -1,29 +1,33 @@
 using Entitas;
+using UnityEngine;
 
-public class CheckPlayerHealthSystem : IExecuteSystem
+namespace Systems
 {
-    readonly GameContext _context;
-
-    public CheckPlayerHealthSystem(Contexts contexts)
+    public class CheckPlayerHealthSystem : IExecuteSystem
     {
-        _context = contexts.game;
-    }
+        readonly GameContext _context;
 
-    public void Execute()
-    {
-        var playerEntity = _context.GetGroup(GameMatcher.PlayerHealth).GetSingleEntity();
-        if (playerEntity == null) return;
-
-        if (playerEntity.hasPlayerHealed)
+        public CheckPlayerHealthSystem(Contexts contexts)
         {
-            playerEntity.ReplacePlayerHealth(Mathf.Min(playerEntity.playerHealth.Value + 10, 100));
-            playerEntity.isPlayerHealed = false;
+            _context = contexts.game;
         }
 
-        if (playerEntity.hasPlayerDamaged)
+        public void Execute()
         {
-            playerEntity.ReplacePlayerHealth(Mathf.Max(playerEntity.playerHealth.Value - 10, 0));
-            playerEntity.isPlayerDamaged = false;
+            var playerEntity = _context.GetGroup(GameMatcher.PlayerHealth).GetSingleEntity();
+            if (playerEntity == null) return;
+
+            if (playerEntity.hasPlayerHealed)
+            {
+                playerEntity.ReplacePlayerHealth(Mathf.Min(playerEntity.playerHealth.Value + 10, 100));
+                playerEntity.isPlayerHealed = false;
+            }
+
+            if (playerEntity.hasPlayerDamaged)
+            {
+                playerEntity.ReplacePlayerHealth(Mathf.Max(playerEntity.playerHealth.Value - 10, 0));
+                playerEntity.isPlayerDamaged = false;
+            }
         }
     }
 }

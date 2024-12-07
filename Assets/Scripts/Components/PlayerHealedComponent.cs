@@ -1,6 +1,9 @@
 using Entitas;
 
-[Game]
-public class PlayerHealedComponent : IComponent
+namespace Components
 {
+    [Game]
+    public class PlayerHealedComponent : IComponent
+    {
+    }
 }

@@ -1,28 +1,31 @@
 using Entitas;
 using UnityEngine;
 
-public class ChangePlayerHealthSystem : IExecuteSystem
+namespace Systems
 {
-    readonly GameContext _context;
-
-    public ChangePlayerHealthSystem(Contexts contexts)
+    public class ChangePlayerHealthSystem : IExecuteSystem
     {
-        _context = contexts.game;
-    }
+        readonly GameContext _context;
 
-    public void Execute()
-    {
-        var playerEntity = _context.GetGroup(GameMatcher.PlayerHealth).GetSingleEntity();
-        if (playerEntity == null) return;
-
-        if (Input.GetKeyDown(KeyCode.D))
+        public ChangePlayerHealthSystem(Contexts contexts)
         {
-            playerEntity.isPlayerDamaged = true;
+            _context = contexts.game;
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
+        public void Execute()
         {
-            playerEntity.isPlayerHealed = true;
+            var playerEntity = _context.GetGroup(GameMatcher.PlayerHealth).GetSingleEntity();
+            if (playerEntity == null) return;
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                playerEntity.isPlayerDamaged = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                playerEntity.isPlayerHealed = true;
+            }
         }
     }
 }

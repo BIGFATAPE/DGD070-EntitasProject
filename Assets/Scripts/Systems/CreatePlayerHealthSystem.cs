@@ -1,17 +1,20 @@
 using Entitas;
 
-public class CreatePlayerHealthSystem : IInitializeSystem
+namespace Systems
 {
-    readonly GameContext _context;
-
-    public CreatePlayerHealthSystem(Contexts contexts)
+    public class CreatePlayerHealthSystem : IInitializeSystem
     {
-        _context = contexts.game;
-    }
+        readonly GameContext _context;
 
-    public void Initialize()
-    {
-        var e = _context.CreateEntity();
-        e.AddPlayerHealth(100f);
+        public CreatePlayerHealthSystem(Contexts contexts)
+        {
+            _context = contexts.game;
+        }
+
+        public void Initialize()
+        {
+            var e = _context.CreateEntity();
+            e.AddPlayerHealth(100f);
+        }
     }
 }
